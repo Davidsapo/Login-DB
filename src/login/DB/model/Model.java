@@ -1,14 +1,16 @@
 package login.DB.model;
 
+import login.DB.dao.MySQLUserDao;
+
 public class Model {
 
-    private LoginService loginService;
+    private MySQLUserDao mySQLUserDao;
 
     public Model() {
-        this.loginService = new LoginService();
+        mySQLUserDao = MySQLUserDao.getInstance();
     }
 
-    public LoginService getLoginService() {
-        return loginService;
+    public MySQLUserDao getMySQLUserDao() {
+        return mySQLUserDao;
     }
 }

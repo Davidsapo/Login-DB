@@ -2,10 +2,7 @@ package login.DB.dao;
 
 import login.DB.model.models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQLUserDao {
 
@@ -39,8 +36,9 @@ public class MySQLUserDao {
             statement.setString(6, password);
             statement.execute();
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new DaoException("Such user already exists.");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
             throw new DaoException("Dao exception");
         } finally {
             try {
@@ -66,7 +64,7 @@ public class MySQLUserDao {
             if (resultSet.next()) {
                 user = new User(resultSet.getInt("id"), resultSet.getString("name"),
                         resultSet.getString("surname"), resultSet.getInt("age"),
-                        resultSet.getString("city"), resultSet.getString(username),
+                        resultSet.getString("city"), resultSet.getString("username"),
                         resultSet.getString("password"));
                 String email = resultSet.getString("email");
                 if (email != null)
@@ -103,6 +101,8 @@ public class MySQLUserDao {
             statement.setInt(8, user.id);
             statement.execute();
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new DaoException("Unsupported changes");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             throw new DaoException("Exception when updating.");

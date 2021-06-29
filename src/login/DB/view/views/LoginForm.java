@@ -59,7 +59,7 @@ public class LoginForm extends JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        jLabel2.setText("Login");
+        jLabel2.setText("Username");
 
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         jLabel3.setText("Password");

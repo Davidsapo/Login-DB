@@ -87,7 +87,8 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", email=" + email +
+                ", age=" + age +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

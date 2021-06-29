@@ -1,5 +1,6 @@
 package login.DB.controller.controllers;
 
+import login.DB.dao.DaoException;
 import login.DB.model.Model;
 import login.DB.model.models.User;
 import login.DB.view.View;
@@ -10,29 +11,41 @@ import java.awt.event.ActionListener;
 
 public class LoggingController {
 
-    private LoginForm loginForm;
+    private Model model;
+    private View view;
 
     public LoggingController(Model model, View view) {
-        loginForm = view.getLoginForm();
-        loginForm.addActionListener(new LoggingActionListener());
+        this.model = model;
+        this.view = view;
+        view.getLoginForm().addActionListener(new LoggingActionListener());
     }
 
     private class LoggingActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == loginForm.getLoginButton())
+            if (e.getSource() == view.getLoginForm().getLoginButton())
                 loginButtonActionPerformed();
+            if (e.getSource() == view.getLoginForm().getRegisterButton()){
+                view.getLoginForm().dispose();
+                view.getRegistrationForm().setVisible(true);
+            }
         }
     }
 
     private void loginButtonActionPerformed() {
-        String login = loginForm.getLogin();
-        char[] password = loginForm.getPassword();
+        String login = view.getLoginForm().getLogin();
+        char[] password = view.getLoginForm().getPassword();
         if (login.isEmpty() || password.length == 0) {
-            loginForm.showMessage("Fields can not be empty!");
+            view.getLoginForm().showMessage("Fields can not be empty!");
             return;
         }
-        //TODO
+        try {
+            User user = model.getMySQLUserDao().loginUser(login, new String(password));
+            view.getLoginForm().showMessage(user.toString());
+        } catch (DaoException e) {
+            view.getLoginForm().showMessage(e.getMessage());
+        }
+
     }
 }
 
