@@ -1,7 +1,5 @@
 package login.DB.model;
 
-import login.DB.model.models.LoginService;
-
 public class Model {
 
     private LoginService loginService;

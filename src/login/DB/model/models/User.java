@@ -2,18 +2,28 @@ package login.DB.model.models;
 
 public class User {
 
+    public final int id;
     private String name;
     private String surname;
-    private String  email;
-    private String login;
+    private int age;
+    private String city;
+    private String email;
+    private String username;
     private String password;
 
-    public User(String name, String surname, String email, String login, String password) {
+    public User(int id, String name, String surname, int age, String city, String username, String password) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
-        this.email = email;
-        this.login = login;
+        this.age = age;
+        this.city = city;
+        this.username = username;
         this.password = password;
+    }
+
+    public User(int id, String name, String surname, int age, String city, String email, String username, String password) {
+        this(id, name, surname, age, city, username, password);
+        this.email = email;
     }
 
     public String getName() {
@@ -32,7 +42,7 @@ public class User {
         this.surname = surname;
     }
 
-    public String  getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -46,6 +56,30 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
