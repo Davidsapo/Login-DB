@@ -42,8 +42,10 @@ public class RegistrationController {
         String username = registrationForm.getUsername();
         String password = registrationForm.getPassword();
 
-        if(name.isEmpty() || surname.isEmpty() || city.isEmpty() || username.isEmpty() || password.isEmpty())
+        if(name.isEmpty() || surname.isEmpty() || city.isEmpty() || username.isEmpty() || password.isEmpty()) {
             registrationForm.showMessage("Fields can not be empty");
+            return;
+        }
 
         try {
             model.getMySQLUserDao().registerUser(name,surname,age,city,username,password);

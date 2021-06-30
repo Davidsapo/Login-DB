@@ -5,6 +5,7 @@ import login.DB.model.Model;
 import login.DB.model.models.User;
 import login.DB.view.View;
 import login.DB.view.views.LoginForm;
+import login.DB.view.views.ProfileForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +42,18 @@ public class LoggingController {
         }
         try {
             User user = model.getMySQLUserDao().loginUser(login, new String(password));
-            view.getLoginForm().showMessage(user.toString());
+            view.getLoginForm().dispose();
+            ProfileForm profileForm = view.getProfileForm();
+            profileForm.setName(user.getName());
+            profileForm.setSurname(user.getSurname());
+            profileForm.setAge(user.getAge());
+            profileForm.setCity(user.getCity());
+            profileForm.setUsername(user.getUsername());
+            profileForm.setPassword(user.getPassword());
+            if (user.getEmail()!=null)
+                profileForm.setEmail(user.getEmail());
+            profileForm.setVisible(true);
+            model.getProfileManager().setLoggedUser(user);
         } catch (DaoException e) {
             view.getLoginForm().showMessage(e.getMessage());
         }
